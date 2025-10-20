@@ -1,12 +1,11 @@
 === Plugin Name ===
 Contributors: jruns
-Donate link: https://jruns.github.io/
 Tags: performance, defer, delay
 Requires at least: 6.0
 Tested up to: 6.8.2
 Stable tag: 0.8
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License: GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 WP Performance Utilities is a WordPress plugin to improve the performance of a WordPress website.
 
