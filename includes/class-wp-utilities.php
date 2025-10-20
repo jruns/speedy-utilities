@@ -161,11 +161,6 @@ class Wp_Utilities {
 	 * Load enabled utilities
 	 */
 	private function load_utilities() {
-		// Only activate utilites on the frontend
-		if ( is_admin() ) {
-			return;
-		}
-
 		$utilities_dir = dirname( __FILE__ ) . '/utilities/';
 
 		if ( is_dir( $utilities_dir ) ) {
@@ -181,12 +176,17 @@ class Wp_Utilities {
 					if ( $this->utility_is_active( $className ) ) {
 						include_once( $utilities_dir . $file );
 
+						// Only activate some utilites on the frontend
+						if ( is_admin() && ( ! property_exists( $className, 'runs_in_admin' ) || ! $className::$runs_in_admin ) ) {
+							return;
+						}
+
 						// Activate output buffer if utility requires it and it has not been activated already
 						if( property_exists( $className, 'needs_html_buffer' ) && $className::$needs_html_buffer ) {
 							$this->activate_html_buffer();
 						}
 
-						// Activate on init so we can access filters
+						// Activate on after_setup_theme so we can access filters
 						add_action( 'after_setup_theme', function() use ( $utilities_dir, $file, $className ) {
 							$utility = new $className;
 							$utility->run();
