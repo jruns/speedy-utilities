@@ -71,7 +71,7 @@
 </style>
 
 <div class="wrap">
-<h1><?php esc_html_e( 'WP Performance Utilities', 'wp-utilities' ); ?></h1>
+<h1><?php esc_html_e( 'Performance Utilities', 'wp-utilities' ); ?></h1>
 
 <form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
 <?php settings_fields( 'wp-utilities' ); ?>

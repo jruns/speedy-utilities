@@ -1,5 +1,5 @@
 # wp-utilities
-WP Performance Utilities is a WordPress plugin to improve the performance of a WordPress website. It includes several utilities that can be activated and configured in order to improve various aspects of your website.
+Performance Utilities is a WordPress plugin to improve the performance of a WordPress website. It includes several utilities that can be activated and configured in order to improve various aspects of your website.
 
 **Utilities included:**  
 - Disable jQuery Migrate
@@ -19,7 +19,7 @@ Add this to your wp-config.php file to activate the utility:
 ```php
 define( 'WP_UTILITIES_DISABLE_JQUERY_MIGRATE', true );
 ```
-Or activate the utility on the WP Performance Utilities wp-admin options page.
+Or activate the utility on the Performance Utilities wp-admin options page.
 
 ### Remove Versions
 This utility removes versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching. 
@@ -28,7 +28,7 @@ Add this to your wp-config.php file to activate the utility:
 ```php
 define( 'WP_UTILITIES_REMOVE_VERSIONS', true );
 ```
-Or activate the utility on the WP Performance Utilities wp-admin options page.
+Or activate the utility on the Performance Utilities wp-admin options page.
 
 ### Enable YouTube Facade
 This utility replaces YouTube iframes with an image placeholder (facade) on any frontend posts or pages. This delays initializing the video until the user clicks on the placeholder image, at which time the video will load and autoplay. The image placeholder is lazy loaded by default. And if the user has javascript disabled, clicking on the image will open the video in a new tab.
@@ -37,7 +37,7 @@ Add this to your wp-config.php file to activate the utility:
 ```php
 define( 'WP_UTILITIES_ENABLE_YOUTUBE_FACADE', true );
 ```
-Or activate the utility on the WP Performance Utilities wp-admin options page.  
+Or activate the utility on the Performance Utilities wp-admin options page.  
 
 ### Move Scripts and Styles to Footer
 This utility moves specified javascript scripts and css styles to the page footer on the frontend. It does not move them in the admin section.  
@@ -178,13 +178,13 @@ Add this to your wp-config.php file to enable the utility:
 ```php
 define( 'WP_UTILITIES_DELAY_SCRIPTS_AND_STYLES', true );
 ```
-Or activate the utility on the WP Performance Utilities wp-admin options page.  
+Or activate the utility on the Performance Utilities wp-admin options page.  
 
 To modify the default user interaction autoload delay of 15000 milliseconds (15s), you can add this to your wp-config.php file:  
 ```php
 define( 'WP_UTILITIES_DELAY_SCRIPTS_AND_STYLES_AUTOLOAD_DELAY', 15000 );
 ```
-Or override the default value in the WP Performance Utilities wp-admin options page.  
+Or override the default value in the Performance Utilities wp-admin options page.  
 The value entered should be in milliseconds. This is a failsafe that will ensure that a script will still load even if the user takes longer to interact with the page.  
 
 Then specify the scripts or stylesheets to be delayed with the `wp_utilities_scripts_and_styles_to_delay` filter by adding something like the following to your functions.php file:  

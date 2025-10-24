@@ -52,8 +52,8 @@ class Wp_Utilities_Admin {
 
 	public function add_options_page() {
 		add_options_page(
-			'WP Performance Utilities',
-			'WP Performance Utilities',
+			'Performance Utilities',
+			'Performance Utilities',
 			'manage_options',
 			'wp-utilities',
 			array( $this, 'render_options_page' )

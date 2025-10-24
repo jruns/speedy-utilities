@@ -1,26 +1,26 @@
-=== Plugin Name ===
+=== Performance Utilities ===
 Contributors: jruns
-Tags: performance, defer, delay
+Tags: performance, optimization, speed, defer, delay, lcp
 Requires at least: 6.0
-Tested up to: 6.8.2
+Tested up to: 6.8
 Stable tag: 0.8
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-WP Performance Utilities is a WordPress plugin to improve the performance of a WordPress website.
+Performance Utilities is a WordPress plugin to improve the performance of a WordPress website.
 
 == Description ==
 
-WP Performance Utilities is a WordPress plugin to improve the performance of a WordPress website. It includes several utilities that can be activated and configured in order to improve various aspects of your website. Disable jQuery Migrate, replace YouTube iframes with a placeholder image (facade), remove scripts or styles from specific pages, move scripts or styles to the page footer, and delay execution of scripts until the page has loaded or the user has interacted with the page.
+Performance Utilities is a WordPress plugin to improve the performance of a WordPress website. It includes several utilities that can be activated and configured in order to improve various aspects of your website. Disable jQuery Migrate, replace YouTube iframes with a placeholder image (facade), remove scripts or styles from specific pages, move scripts or styles to the page footer, and delay execution of scripts until the page has loaded or the user has interacted with the page.
 
 == Installation ==
 
 From your WordPress dashboard
 
 1. Visit Plugins > Add New
-2. Search for "WP Performance Utilities"
-3. Install and Activate WP Performance Utilities from your Plugins page
-4. Visit Settings > WP Performance Utilities to configure
+2. Search for "Performance Utilities"
+3. Install and Activate Performance Utilities from your Plugins page
+4. Visit Settings > Performance Utilities to configure
 5. Place related filters in your functions.php file
 
 == Frequently Asked Questions ==
@@ -31,5 +31,5 @@ Because websites should be fast without costing money.
 
 == Changelog ==
 
-= 1.0 =
-* Initial release
+= 0.8 =
+* Initial release with several performance utilities.

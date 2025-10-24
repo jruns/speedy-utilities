@@ -7,7 +7,7 @@
  * @package           Wp_Utilities
  *
  * @wordpress-plugin
- * Plugin Name:       WP Performance Utilities 
+ * Plugin Name:       Performance Utilities 
  * Plugin URI:        https://github.com/jruns/wp-utilities
  * Description:       Utilities to improve the performance of your WordPress site.
  * Version:           0.8
