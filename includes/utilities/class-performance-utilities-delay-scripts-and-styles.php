@@ -136,14 +136,19 @@ class Performance_Utilities_Delay_Scripts_And_Styles {
 	 * @since    0.4.0
 	 */
 	public static function get_user_interaction_delay_script() {
-		$delay_var = 'wppu_delay_scripts_autoload_delay';
-		$delay_constant = strtoupper( $delay_var );
+		$className = 'delay_scripts_and_styles';
+		$delay_var = 'autoload_delay';
+		$delay_constant = strtoupper( 'wppu_' . $className . '_' . $delay_var );
+		$autoLoadDelay = null;
 
 		if ( defined( $delay_constant ) && is_numeric( constant( $delay_constant ) ) ) {
 			$autoLoadDelay = intval( constant( $delay_constant ) );
 		} else {
 			// get option, default to 15000 milliseconds if not set
-			$autoLoadDelay = get_option( $delay_var );
+			$options = (array) get_option( 'performance_utilities_settings', array() );
+			if ( array_key_exists( $className, $options ) && array_key_exists( $delay_var, $options[$className] ) ) {
+				$autoLoadDelay = $options[$className][$delay_var];
+			}
 			if ( empty( $autoLoadDelay ) ) {
 				$autoLoadDelay = 15000;
 			}

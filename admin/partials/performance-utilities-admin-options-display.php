@@ -11,6 +11,8 @@
  * @package    Performance_Utilities
  * @subpackage Performance_Utilities/admin/partials
  */
+
+$settings = (array) get_option( 'performance_utilities_settings', array() );
 ?>
 <style>;
     }
@@ -83,47 +85,47 @@
 <table class="form-table">
 <?php
 $args = array(
-    'utility_var'       => 'wppu_disable_jquery_migrate',
+    'name'              => 'disable_jquery_migrate',
     'heading'           => 'Disable jQuery Migrate?',
     'description'       => 'Disable jQuery migrate script from the frontend.'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_remove_versions',
+    'name'              => 'remove_versions',
     'heading'           => 'Remove Versions from Scripts and Styles?',
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_enable_youtube_facade',
+    'name'              => 'enable_youtube_facade',
     'heading'           => 'Enable YouTube Facade?',
     'description'       => 'Enable YouTube facade for videos on the frontend, and delay loading videos until the user clicks the placeholder image.'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_move_scripts_and_styles_to_footer',
+    'name'              => 'move_scripts_and_styles_to_footer',
     'heading'           => 'Move Scripts and Styles to the footer?',
     'description'       => 'Enable the `wppu_scripts_and_styles_to_move_to_footer` WordPress filter to selectively move scripts and styles to the page footer on the frontend.'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_remove_scripts_and_styles',
+    'name'              => 'remove_scripts_and_styles',
     'heading'           => 'Remove Scripts and Styles?',
     'description'       => 'Enable the `wppu_scripts_and_styles_to_remove` WordPress filter to selectively remove scripts and styles from the frontend.'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_delay_scripts_and_styles',
+    'name'              => 'delay_scripts_and_styles',
     'heading'           => 'Delay Scripts?',
     'description'       => 'Enable the `wppu_scripts_and_styles_to_delay` WordPress filter to selectively delay javascript and stylesheets on the frontend.',
     'child_options'     => array(
         array(
-            'utility_var'       => 'wppu_delay_scripts_and_styles_autoload_delay',
+            'name'              => 'autoload_delay',
             'type'              => 'number',
             'default'           => 15000,
             'heading'           => 'User interaction autoload delay',
@@ -131,14 +133,14 @@ $args = array(
         )
     )
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 
 $args = array(
-    'utility_var'       => 'wppu_preload_images',
+    'name'              => 'preload_images',
     'heading'           => 'Preload Images?',
     'description'       => 'Enable the `wppu_images_to_preload` WordPress filter to selectively preload images on the frontend to improve Largest Contentful Paint (LCP).'
 );
-output_admin_option( $args );
+output_admin_option( $args, $settings );
 ?>
 </table>
 
@@ -154,38 +156,56 @@ output_admin_option( $args );
 
 <?php
 
-function output_admin_option( $args, $should_return = false ) {
-    extract( $args );
+function output_admin_option( $args, $settings, $should_return = false ) {
+    $parent = $args['parent'] ?? null;
+    $type = $args['type'] ?? '';
+    $name = $args['name'] ?? '';
+    $heading = $args['heading'] ?? '';
+    $description = $args['description'] ?? '';
+    $default = $args['default'] ?? '';
+    $child_options = $args['child_options'] ?? array();
 
-    $utility_constant = strtoupper( $utility_var );
+    $utility_constant = strtoupper( 'wppu_' . ( $parent ? $parent . '_' : '' ) . $name );
     $utility_value = null;
     $placeholder = '';
     $after_label_msg = '';
     if( defined( $utility_constant ) ) {
         $utility_value = constant( $utility_constant );
         $after_label_msg = "<span class='tooltip'><span class='dashicons dashicons-warning'></span><span class='tooltip-text'>This setting is currently configured in your wp-config.php file and can only be enabled or disabled there.<br/><br/>Remove $utility_constant from wp-config.php in order to enable/disable this setting here.</span></span>";
-    } else {
-        $utility_value = get_option( $utility_var );
+    } else if ( ! empty( $settings ) ) {
+        if ( ! empty( $parent ) && array_key_exists( $parent, $settings ) && array_key_exists( $name, $settings[$parent] ) ) {
+            $utility_value = $settings[$parent][$name];
+        } else if ( array_key_exists( $name, $settings['active_utilities'] ) ) {
+            $utility_value = $settings['active_utilities'][$name];
+        }
+
+        if ( is_numeric( $utility_value ) || ( is_array( $utility_value ) && ! empty( $utility_value ) ) ) {
+            $utility_value = absint( $utility_value );
+        } else {
+            $utility_value = sanitize_text_field( $utility_value );
+        }
     }
 
     $child_output = '';
 
     if ( ! empty( $child_options ) && is_array( $child_options ) ) {
         foreach( $child_options as $child ) {
-            $child['is_child'] = true;
-            $child_output .= output_admin_option( $child, true );
+            $child['parent'] = $name;
+            $child_output .= output_admin_option( $child, $settings,  true );
         }
         $child_output = "<table class='child-table'>" . $child_output . "</table>";
     }
 
-    $input_output = "<input type='checkbox' id='$utility_var' name='$utility_var' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>" . $description . "$after_label_msg";
+    $form_field_name = "performance_utilities_settings" . ( $parent ? "[$parent]" : "[active_utilities]" ). "[$name]";
+
+    $input_output = "<input type='checkbox' name='$form_field_name' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>" . $description . "$after_label_msg";
     if ( ! empty( $type ) ) {
         if ( empty( $utility_value ) && ! empty( $default ) ) {
             $placeholder = "placeholder='$default'";
         }
 
         if ( 'number' === $type ) {
-            $input_output = $description . "<br/><input type='number' id='$utility_var' name='$utility_var' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>$after_label_msg";
+            $input_output = $description . "<br/><input type='number' name='$form_field_name' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>$after_label_msg";
         }
     }
 
@@ -219,7 +239,7 @@ function output_admin_option( $args, $should_return = false ) {
 
     $output = "<tr valign='top'>
         <th scope='row'>" . $heading . "</th>" .
-        ( ! empty( $is_child ) && $is_child ? "</tr><tr valign='top'>" : "" ) .
+        ( ! empty( $parent ) ? "</tr><tr valign='top'>" : "" ) .
         "<td><label>$input_output</label>
         $child_output
         </td></tr>";

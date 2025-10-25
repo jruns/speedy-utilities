@@ -53,14 +53,19 @@ class Performance_Utilities_Admin {
 	}
 	
     public function registersettings() {
-        register_setting( 'performance-utilities', 'wppu_disable_jquery_migrate');
-        register_setting( 'performance-utilities', 'wppu_remove_versions');
-        register_setting( 'performance-utilities', 'wppu_enable_youtube_facade');
-        register_setting( 'performance-utilities', 'wppu_move_scripts_and_styles_to_footer');
-        register_setting( 'performance-utilities', 'wppu_remove_scripts_and_styles');
-        register_setting( 'performance-utilities', 'wppu_delay_scripts_and_styles');
-        register_setting( 'performance-utilities', 'wppu_delay_scripts_and_styles_autoload_delay');
-        register_setting( 'performance-utilities', 'wppu_preload_images');
+		$default_array = array(
+			'active_utilities' => array()
+		);
+
+        register_setting(
+			'performance-utilities',
+			'performance_utilities_settings',
+			array(
+				'type'              => 'array',
+				'show_in_rest'      => false,
+				'default'           => $default_array,
+			)
+		);
     }
 
 	public function render_options_page() {

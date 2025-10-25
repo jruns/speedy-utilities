@@ -46,6 +46,15 @@ class Performance_Utilities {
 	protected $version;
 
 	/**
+	 * The current plugin settings.
+	 *
+	 * @since    0.8
+	 * @access   protected
+	 * @var      array    $settings    The current plugin settings.
+	 */
+	protected $settings;
+
+	/**
 	 * The status of the HTML buffer.
 	 *
 	 * @since    0.1.0
@@ -130,17 +139,25 @@ class Performance_Utilities {
 		$this->loader->add_action( 'plugin_action_links_' . PERFORMANCE_UTILITIES_BASE_NAME, $plugin_admin, 'add_plugin_action_links' );
 	}
 
-	private function utility_is_active( $className ) {
-		$className = str_replace( 'Performance_Utilities_', 'wppu_', $className );
+	private function load_settings() {
+		$defaults = array(
+			'active_utilities' => array()
+		);
 
-		$constant_name = strtoupper( $className );
-		$option_name = strtolower( $className );
+		$this->settings = wp_parse_args( get_option( 'performance_utilities_settings' ), $defaults );
+	}
+
+	private function utility_is_active( $className ) {
+		$className = str_replace( 'Performance_Utilities_', '', $className );
+
+		$constant_name = strtoupper( 'wppu_' . $className );
+		$utility_name = strtolower( $className );
 
 		if( defined( $constant_name ) ) {
 			if ( constant( $constant_name ) ) {
 				return true;
 			}
-		} else if ( $option_value = get_option( $option_name ) ) {
+		} else if ( array_key_exists( $utility_name, $this->settings['active_utilities'] ) && $this->settings['active_utilities'][$utility_name] ) {
 			return true;
 		}
 
@@ -152,6 +169,7 @@ class Performance_Utilities {
 	 */
 	private function load_utilities() {
 		$utilities_dir = dirname( __FILE__ ) . '/utilities/';
+		$this->load_settings();
 
 		if ( is_dir( $utilities_dir ) ) {
 			if ( $dh = opendir( $utilities_dir ) ) {
