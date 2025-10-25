@@ -7,11 +7,20 @@ Stable tag: 0.8
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-Performance Utilities is a WordPress plugin to improve the performance of a WordPress website.
+Improve the performance of your WordPress website.
 
 == Description ==
 
-Performance Utilities is a WordPress plugin to improve the performance of a WordPress website. It includes several utilities that can be activated and configured in order to improve various aspects of your website. Disable jQuery Migrate, replace YouTube iframes with a placeholder image (facade), remove scripts or styles from specific pages, move scripts or styles to the page footer, and delay execution of scripts until the page has loaded or the user has interacted with the page.
+This plugin includes several utilities that can be activated and configured in order to improve various aspects of your website.
+
+**Utilities included:**  
+- Disable jQuery Migrate
+- Remove versions from external scripts and styles
+- Replace YouTube iframes with a placeholder image (facade)
+- Move scripts or styles to the page footer on specific pages
+- Remove scripts or styles from specific pages
+- Delay execution of scripts and styles until the page has loaded or the user has interacted with the page.
+- Preload images on specific pages to improve Largest Contentful Paint (LCP).
 
 == Installation ==
 
@@ -32,4 +41,4 @@ Because websites should be fast without costing money.
 == Changelog ==
 
 = 0.8 =
-* Initial release with several performance utilities.
+* Initial plugin repository release with several performance utilities.

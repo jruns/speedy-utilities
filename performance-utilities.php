@@ -4,7 +4,7 @@
  *
  * @link              https://github.com/jruns
  * @since             0.1
- * @package           Wp_Utilities
+ * @package           Performance_Utilities
  *
  * @wordpress-plugin
  * Plugin Name:       Performance Utilities 
@@ -15,8 +15,7 @@
  * Author URI:        https://github.com/jruns
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wp-utilities
- * Domain Path:       /languages
+ * Text Domain:       performance-utilities
  */
 
 // If this file is called directly, abort.
@@ -24,35 +23,35 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WP_UTILITIES_VERSION', '0.8' );
-define( 'WP_UTILITIES_BASE_NAME', plugin_basename( __FILE__ ) );
+define( 'PERFORMANCE_UTILITIES_VERSION', '0.8' );
+define( 'PERFORMANCE_UTILITIES_BASE_NAME', plugin_basename( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wp-utilities-activator.php
+ * This action is documented in includes/class-performance-utilities-activator.php
  */
-function activate_wp_utilities() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-utilities-activator.php';
-	Wp_Utilities_Activator::activate();
+function activate_performance_utilities() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-performance-utilities-activator.php';
+	Performance_Utilities_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wp-utilities-deactivator.php
+ * This action is documented in includes/class-performance-utilities-deactivator.php
  */
-function deactivate_wp_utilities() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-utilities-deactivator.php';
-	Wp_Utilities_Deactivator::deactivate();
+function deactivate_performance_utilities() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-performance-utilities-deactivator.php';
+	Performance_Utilities_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wp_utilities' );
-register_deactivation_hook( __FILE__, 'deactivate_wp_utilities' );
+register_activation_hook( __FILE__, 'activate_performance_utilities' );
+register_deactivation_hook( __FILE__, 'deactivate_performance_utilities' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-wp-utilities.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-performance-utilities.php';
 
 /**
  * Begins execution of the plugin.
@@ -63,10 +62,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-utilities.php';
  *
  * @since    0.1.0
  */
-function run_wp_utilities() {
+function run_performance_utilities() {
 
-	$plugin = new Wp_Utilities();
+	$plugin = new Performance_Utilities();
 	$plugin->run();
 
 }
-run_wp_utilities();
+run_performance_utilities();

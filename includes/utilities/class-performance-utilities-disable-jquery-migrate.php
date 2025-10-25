@@ -1,6 +1,6 @@
 <?php
 
-class Wp_Utilities_Disable_Jquery_Migrate {
+class Performance_Utilities_Disable_Jquery_Migrate {
 
 	public function __construct() {
 	}

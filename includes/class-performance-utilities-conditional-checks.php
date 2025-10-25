@@ -3,14 +3,14 @@
 /**
  * Conditional checks for filtering page match rules
  *
- * @link       https://jruns.github.io/
+ * @link       https://github.com/jruns/wp-performance-utilities
  * @since      0.1.0
  *
- * @package    Wp_Utilities
- * @subpackage Wp_Utilities/includes
+ * @package    Performance_Utilities
+ * @subpackage Performance_Utilities/includes
  */
 
-class Wp_Utilities_Conditional_Checks {
+class Performance_Utilities_Conditional_Checks {
 	public function __construct() {
 	}
 

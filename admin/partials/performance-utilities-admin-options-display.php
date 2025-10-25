@@ -5,11 +5,11 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://jruns.github.io/
+ * @link       https://github.com/jruns/wp-performance-utilities
  * @since      0.1.0
  *
- * @package    Wp_Utilities
- * @subpackage Wp_Utilities/admin/partials
+ * @package    Performance_Utilities
+ * @subpackage Performance_Utilities/admin/partials
  */
 ?>
 <style>;
@@ -71,59 +71,59 @@
 </style>
 
 <div class="wrap">
-<h1><?php esc_html_e( 'Performance Utilities', 'wp-utilities' ); ?></h1>
+<h1><?php esc_html_e( 'Performance Utilities', 'performance-utilities' ); ?></h1>
 
 <form method="post" action="<?php echo admin_url( 'options.php' ); ?>">
-<?php settings_fields( 'wp-utilities' ); ?>
+<?php settings_fields( 'performance-utilities' ); ?>
 
 <ul>
 <li class="itemDetail">
-<h2 class="itemTitle"><?php _e( 'General Options', 'wp-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php _e( 'General Options', 'performance-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
 $args = array(
-    'utility_var'       => 'wp_utilities_disable_jquery_migrate',
+    'utility_var'       => 'wppu_disable_jquery_migrate',
     'heading'           => 'Disable jQuery Migrate?',
     'description'       => 'Disable jQuery migrate script from the frontend.'
 );
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_remove_versions',
+    'utility_var'       => 'wppu_remove_versions',
     'heading'           => 'Remove Versions from Scripts and Styles?',
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_enable_youtube_facade',
+    'utility_var'       => 'wppu_enable_youtube_facade',
     'heading'           => 'Enable YouTube Facade?',
     'description'       => 'Enable YouTube facade for videos on the frontend, and delay loading videos until the user clicks the placeholder image.'
 );
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_move_scripts_and_styles_to_footer',
+    'utility_var'       => 'wppu_move_scripts_and_styles_to_footer',
     'heading'           => 'Move Scripts and Styles to the footer?',
-    'description'       => 'Activate the `wp_utilities_scripts_and_styles_to_move_to_footer` WordPress filter to selectively move scripts and styles to the page footer on the frontend.'
+    'description'       => 'Enable the `wppu_scripts_and_styles_to_move_to_footer` WordPress filter to selectively move scripts and styles to the page footer on the frontend.'
 );
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_remove_scripts_and_styles',
+    'utility_var'       => 'wppu_remove_scripts_and_styles',
     'heading'           => 'Remove Scripts and Styles?',
-    'description'       => 'Activate the `wp_utilities_scripts_and_styles_to_remove` WordPress filter to selectively remove scripts and styles from the frontend.'
+    'description'       => 'Enable the `wppu_scripts_and_styles_to_remove` WordPress filter to selectively remove scripts and styles from the frontend.'
 );
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_delay_scripts_and_styles',
+    'utility_var'       => 'wppu_delay_scripts_and_styles',
     'heading'           => 'Delay Scripts?',
-    'description'       => 'Activate the `wp_utilities_scripts_and_styles_to_delay` WordPress filter to selectively delay javascript and stylesheets on the frontend.',
+    'description'       => 'Enable the `wppu_scripts_and_styles_to_delay` WordPress filter to selectively delay javascript and stylesheets on the frontend.',
     'child_options'     => array(
         array(
-            'utility_var'       => 'wp_utilities_delay_scripts_and_styles_autoload_delay',
+            'utility_var'       => 'wppu_delay_scripts_and_styles_autoload_delay',
             'type'              => 'number',
             'default'           => 15000,
             'heading'           => 'User interaction autoload delay',
@@ -134,9 +134,9 @@ $args = array(
 echo output_admin_option( $args );
 
 $args = array(
-    'utility_var'       => 'wp_utilities_preload_images',
+    'utility_var'       => 'wppu_preload_images',
     'heading'           => 'Preload Images?',
-    'description'       => 'Activate the `wp_utilities_images_to_preload` WordPress filter to selectively preload images on the frontend to improve Largest Contentful Paint (LCP).'
+    'description'       => 'Enable the `wppu_images_to_preload` WordPress filter to selectively preload images on the frontend to improve Largest Contentful Paint (LCP).'
 );
 echo output_admin_option( $args );
 ?>
@@ -178,19 +178,19 @@ function output_admin_option( $args ) {
         $child_output = "<table class='child-table'>" . $child_output . "</table>";
     }
 
-    $input_output = "<input type='checkbox' id='$utility_var' name='$utility_var' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>" . __( $description, 'wp-utilities' ) . "$after_label_msg";
+    $input_output = "<input type='checkbox' id='$utility_var' name='$utility_var' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>" . __( $description, 'performance-utilities' ) . "$after_label_msg";
     if ( ! empty( $type ) ) {
         if ( empty( $utility_value ) && ! empty( $default ) ) {
             $placeholder = "placeholder='$default'";
         }
 
         if ( 'number' === $type ) {
-            $input_output = __( $description, 'wp-utilities' ) . "<br/><input type='number' id='$utility_var' name='$utility_var' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>$after_label_msg";
+            $input_output = __( $description, 'performance-utilities' ) . "<br/><input type='number' id='$utility_var' name='$utility_var' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>$after_label_msg";
         }
     }
 
     return "<tr valign='top'>
-        <th scope='row'>" . __( $heading, 'wp-utilities' ) . "</th>" .
+        <th scope='row'>" . __( $heading, 'performance-utilities' ) . "</th>" .
         ( ! empty( $is_child ) && $is_child ? "</tr><tr valign='top'>" : "" ) .
         "<td><label>$input_output</label>
         $child_output
