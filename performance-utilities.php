@@ -21,8 +21,8 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'PERFORMANCE_UTILITIES_VERSION', '0.8' );
-define( 'PERFORMANCE_UTILITIES_BASE_NAME', plugin_basename( __FILE__ ) );
+define( 'PERFUTILS_VERSION', '0.8' );
+define( 'PERFUTILS_BASE_NAME', plugin_basename( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

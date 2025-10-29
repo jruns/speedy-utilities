@@ -77,8 +77,8 @@ class Performance_Utilities {
 	 * @since    0.1.0
 	 */
 	public function __construct() {
-		if ( defined( 'PERFORMANCE_UTILITIES_VERSION' ) ) {
-			$this->version = PERFORMANCE_UTILITIES_VERSION;
+		if ( defined( 'PERFUTILS_VERSION' ) ) {
+			$this->version = PERFUTILS_VERSION;
 		} else {
 			$this->version = '0.8';
 		}
@@ -140,7 +140,7 @@ class Performance_Utilities {
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'registersettings' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
-		$this->loader->add_action( 'plugin_action_links_' . PERFORMANCE_UTILITIES_BASE_NAME, $plugin_admin, 'add_plugin_action_links' );
+		$this->loader->add_action( 'plugin_action_links_' . PERFUTILS_BASE_NAME, $plugin_admin, 'add_plugin_action_links' );
 	}
 
 	private function load_settings() {
