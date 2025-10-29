@@ -15,7 +15,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$settings = (array) get_option( 'perfutils_settings', array() );
+$perfutils_settings = (array) get_option( 'perfutils_settings', array() );
 ?>
 
 <div class="wrap">
@@ -35,14 +35,14 @@ $args = array(
     'heading'           => 'Disable jQuery Migrate?',
     'description'       => 'Disable jQuery migrate script from the frontend.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'remove_versions',
     'heading'           => 'Remove Versions from Scripts and Styles?',
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 ?>
 </table>
 
@@ -55,21 +55,21 @@ $args = array(
     'heading'           => 'Enable YouTube Facade?',
     'description'       => 'Enable YouTube facade for videos on the frontend, and delay loading videos until the user clicks the placeholder image.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'move_scripts_and_styles_to_footer',
     'heading'           => 'Move Scripts and Styles to the footer?',
     'description'       => 'Enable the `perfutils_scripts_and_styles_to_move_to_footer` WordPress filter to selectively move scripts and styles to the page footer on the frontend.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'remove_scripts_and_styles',
     'heading'           => 'Remove Scripts and Styles?',
     'description'       => 'Enable the `perfutils_scripts_and_styles_to_remove` WordPress filter to selectively remove scripts and styles from the frontend.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'delay_scripts_and_styles',
@@ -85,7 +85,7 @@ $args = array(
         )
     )
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 ?>
 </table>
 
@@ -98,7 +98,7 @@ $args = array(
     'heading'           => 'Preload Images?',
     'description'       => 'Enable the `perfutils_images_to_preload` WordPress filter to selectively preload images on the frontend.'
 );
-output_admin_option( $args, $settings );
+perfutils_output_admin_option( $args, $perfutils_settings );
 ?>
 </table>
 
@@ -114,7 +114,7 @@ output_admin_option( $args, $settings );
 
 <?php
 
-function output_admin_option( $args, $settings, $should_return = false ) {
+function perfutils_output_admin_option( $args, $perfutils_settings, $should_return = false ) {
     $parent = $args['parent'] ?? null;
     $type = $args['type'] ?? '';
     $name = $args['name'] ?? '';
@@ -130,11 +130,11 @@ function output_admin_option( $args, $settings, $should_return = false ) {
     if( defined( $utility_constant ) ) {
         $utility_value = constant( $utility_constant );
         $after_label_msg = "<span class='tooltip'><span class='dashicons dashicons-warning'></span><span class='tooltip-text'>This setting is currently configured in your wp-config.php file and can only be enabled or disabled there.<br/><br/>Remove $utility_constant from wp-config.php in order to enable/disable this setting here.</span></span>";
-    } else if ( ! empty( $settings ) ) {
-        if ( ! empty( $parent ) && array_key_exists( $parent, $settings ) && array_key_exists( $name, $settings[$parent] ) ) {
-            $utility_value = $settings[$parent][$name];
-        } else if ( array_key_exists( $name, $settings['active_utilities'] ) ) {
-            $utility_value = $settings['active_utilities'][$name];
+    } else if ( ! empty( $perfutils_settings ) ) {
+        if ( ! empty( $parent ) && array_key_exists( $parent, $perfutils_settings ) && array_key_exists( $name, $perfutils_settings[$parent] ) ) {
+            $utility_value = $perfutils_settings[$parent][$name];
+        } else if ( array_key_exists( $name, $perfutils_settings['active_utilities'] ) ) {
+            $utility_value = $perfutils_settings['active_utilities'][$name];
         }
 
         if ( is_numeric( $utility_value ) || ( is_array( $utility_value ) && ! empty( $utility_value ) ) ) {
@@ -149,7 +149,7 @@ function output_admin_option( $args, $settings, $should_return = false ) {
     if ( ! empty( $child_options ) && is_array( $child_options ) ) {
         foreach( $child_options as $child ) {
             $child['parent'] = $name;
-            $child_output .= output_admin_option( $child, $settings,  true );
+            $child_output .= perfutils_output_admin_option( $child, $perfutils_settings,  true );
         }
         $child_output = "<table class='child-table'>" . $child_output . "</table>";
     }
@@ -163,7 +163,7 @@ function output_admin_option( $args, $settings, $should_return = false ) {
         }
 
         if ( 'number' === $type ) {
-            $input_output = $description . "<br/><input type='number' name='$form_field_name' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>$after_label_msg";
+            $input_output = $description . "<br/><input type='number' name='$form_field_name' value='$utility_value' $placeholder" . ( defined( $utility_constant ) ? " disabled='' title='Remove $utility_constant from wp-config.php in order to configure this setting here.'" : "" ) . "/>$after_label_msg";
         }
     }
 
