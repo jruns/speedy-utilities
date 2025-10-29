@@ -181,7 +181,7 @@ class PerformanceUtilities {
 						continue;
 					}
 
-					$className = str_replace( array( 'class-', '-', '.php'), array( '', ' ', ''), $file );
+					$className = 'PerformanceUtilities_' . str_replace( array( 'class-', '-', '.php'), array( '', ' ', ''), $file );
 					$className = str_replace( ' ', '_', ucwords( $className ) );
 
 					if ( $this->utility_is_active( $className ) ) {
@@ -201,7 +201,7 @@ class PerformanceUtilities {
 						add_action( 'after_setup_theme', function() use ( $utilities_dir, $file, $className ) {
 							$utility = new $className;
 							$utility->run();
-						} );
+						}, 1 );
 					}
 				}
 				closedir( $dh );
