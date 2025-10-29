@@ -157,7 +157,7 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 			}
 		}
 
-		return '<script>const perfutilsAutoLoadDelay = ' . $autoLoadDelay . ';</script>' . PHP_EOL . 
+		return '<script nodelay>const perfutilsAutoLoadDelay = ' . $autoLoadDelay . ';</script>' . PHP_EOL . 
 			'<script defer>{const e=perfutilsAutoLoadDelay,t=["mouseover","keydown","touchmove","touchstart"],o=()=>{const e=new Event("DOMUserInteraction");document.dispatchEvent(e),console.log("interacted"),document.querySelectorAll("script[data-type=user_interaction_delay]").forEach((e=>e.src=e.dataset.src)),t.forEach((e=>window.removeEventListener(e,c,{passive:!0,once:!0})))},n=setTimeout(o,e),c=()=>{o(),clearTimeout(n)};t.forEach((e=>window.addEventListener(e,c,{passive:!0,once:!0})))}</script>';
 	}
 
