@@ -75,7 +75,7 @@ class PerformanceUtilities_Preload_Images {
 	/**
 	 * Execute commands after initialization
 	 *
-	 * @since    0.8.0
+	 * @since    1.0.0
 	 */
 	public function run() {
 		add_filter( 'perfutils_modify_final_output', array( $this, 'process_images' ), 9 );
