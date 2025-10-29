@@ -157,8 +157,8 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 			}
 		}
 
-		return '<script nodelay>const perfutilsAutoLoadDelay = ' . $autoLoadDelay . ';</script>' . PHP_EOL . 
-			'<script defer>{const e=perfutilsAutoLoadDelay,t=["mouseover","keydown","touchmove","touchstart"],o=()=>{const e=new Event("DOMUserInteraction");document.dispatchEvent(e),console.log("interacted"),document.querySelectorAll("script[data-type=user_interaction_delay]").forEach((e=>e.src=e.dataset.src)),t.forEach((e=>window.removeEventListener(e,c,{passive:!0,once:!0})))},n=setTimeout(o,e),c=()=>{o(),clearTimeout(n)};t.forEach((e=>window.addEventListener(e,c,{passive:!0,once:!0})))}</script>';
+		return "<script nodelay>const perfutilsAutoLoadDelay = " . $autoLoadDelay . ";</script>" . PHP_EOL . 
+			"<script id='perfutils-user-interaction-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/user_interaction_delay.min.js' . "' defer></script>";
 	}
 
 	/**
@@ -167,7 +167,7 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 	 * @since    0.4.0
 	 */
 	public static function get_page_loaded_delay_script() {
-		return '<script defer>document.addEventListener("DOMContentLoaded",(()=>{document.querySelectorAll("script[data-type=page_loaded_delay]").forEach((e=>{setTimeout((function(){e.src=e.dataset.src}),e.dataset.delay)}))}));</script>';
+		return "<script id='perfutils-page-loaded-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/page_loaded_delay.min.js' . "' defer></script>";
 	}
 
 	/**
