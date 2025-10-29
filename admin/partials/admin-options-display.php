@@ -17,63 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 $settings = (array) get_option( 'perfutils_settings', array() );
 ?>
-<style>;
-    }
-    .form-table th, .form-table td {
-        padding: 0 10px 0 0;
-    }
-    @media screen and (min-width: 783px) {
-        .form-table th {
-            width: 250px;
-        }
-    }
-
-    .child-table {
-        width: 100%;
-        margin-top: 10px;
-        margin-left: 40px;
-    }
-    .form-table .child-table th {
-        padding: 0;
-    }
-    .form-table .child-table td {
-        padding: 5px 0 10px;
-    }
-
-    .utility_notice {
-        font-size: 0.9em;
-        color: #666;
-    }
-
-    .dashicons-warning {
-        line-height: 1.4;
-        font-size: 14px;
-        color: #F5B027;
-        margin-left:4px;
-    }
-
-    .tooltip {
-        position: relative;
-        display: inline-block;	
-    }
-    .tooltip .tooltip-text {
-        visibility: hidden;
-        top: 20px;
-        right: 0;
-        min-width:280px;
-        background-color: #E4E4E4;
-        border: 2px solid #3D3D3D;
-        border-radius: 5px;
-        font-size: 0.9em;
-        color: rgb(60, 67, 74);
-        padding: 4px;
-        position: absolute;
-        z-index: 1;
-    }
-    .tooltip:hover .tooltip-text {
-        visibility: visible;
-    }
-</style>
 
 <div class="wrap">
 <h1><?php esc_html_e( 'Performance Utilities', 'performance-utilities' ); ?></h1>
@@ -83,7 +26,7 @@ $settings = (array) get_option( 'perfutils_settings', array() );
 
 <ul>
 <li class="itemDetail">
-<h2 class="itemTitle"><?php esc_html_e( 'General Options', 'performance-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php esc_html_e( 'General Utilities', 'performance-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
@@ -100,7 +43,13 @@ $args = array(
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
 output_admin_option( $args, $settings );
+?>
+</table>
 
+<h2 class="itemTitle"><?php esc_html_e( 'Render-Blocking Utilities', 'performance-utilities' ); ?></h2>
+
+<table class="form-table">
+<?php
 $args = array(
     'name'              => 'enable_youtube_facade',
     'heading'           => 'Enable YouTube Facade?',
@@ -137,11 +86,17 @@ $args = array(
     )
 );
 output_admin_option( $args, $settings );
+?>
+</table>
 
+<h2 class="itemTitle" style="margin-top: 20px;"><?php esc_html_e( 'Largest Contentful Paint Utilities', 'performance-utilities' ); ?></h2>
+
+<table class="form-table">
+<?php
 $args = array(
     'name'              => 'preload_images',
     'heading'           => 'Preload Images?',
-    'description'       => 'Enable the `perfutils_images_to_preload` WordPress filter to selectively preload images on the frontend to improve Largest Contentful Paint (LCP).'
+    'description'       => 'Enable the `perfutils_images_to_preload` WordPress filter to selectively preload images on the frontend.'
 );
 output_admin_option( $args, $settings );
 ?>
@@ -201,7 +156,7 @@ function output_admin_option( $args, $settings, $should_return = false ) {
 
     $form_field_name = "perfutils_settings" . ( $parent ? "[$parent]" : "[active_utilities]" ). "[$name]";
 
-    $input_output = "<input type='checkbox' name='$form_field_name' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? ' disabled' : '' ) . "/>" . $description . "$after_label_msg";
+    $input_output = "<input type='checkbox' name='$form_field_name' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( defined( $utility_constant ) ? " disabled='' title='Remove $utility_constant from wp-config.php in order to configure this setting here.'" : "" ) . "/>" . $description . "$after_label_msg";
     if ( ! empty( $type ) ) {
         if ( empty( $utility_value ) && ! empty( $default ) ) {
             $placeholder = "placeholder='$default'";
