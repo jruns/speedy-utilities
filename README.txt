@@ -1,6 +1,6 @@
 === Performance Utilities ===
 Contributors: jruns
-Tags: performance, optimization, speed, defer, delay
+Tags: performance, optimization, speed, delay, lcp
 Requires at least: 6.0
 Tested up to: 6.8
 Stable tag: 1.0.0
@@ -14,13 +14,13 @@ Improve the performance of your WordPress website.
 This plugin includes several utilities that can be activated and configured in order to improve various aspects of your website.
 
 **Utilities included:**  
-- Disable jQuery Migrate
-- Remove versions from external scripts and styles
-- Replace YouTube iframes with a placeholder image (facade)
-- Move scripts or styles to the page footer on specific pages
-- Remove scripts or styles from specific pages
-- Delay execution of scripts and styles until the page has loaded or the user has interacted with the page.
-- Preload images on specific pages to improve Largest Contentful Paint (LCP).
+- Disable jQuery Migrate on the frontend.
+- Remove versions from external script and style source urls.
+- Enable YouTube Facade: Replace YouTube iframes with a placeholder image and delay loading videos until the user clicks on the placeholder image.
+- Preload Images: Preload specified images on specific pages and at specified viewport sizes to improve Largest Contentful Paint (LCP).
+- Move Scripts and Styles to the footer: Move specified scripts and styles to the page footer on the frontend on specific pages.
+- Remove Scripts and Styles: Remove specified scripts and styles from the frontend on specific pages.
+- Delay Scripts and Styles: Delay execution of specified scripts and styles until the page has loaded or the user has interacted with the page.
 
 == Installation ==
 
@@ -37,6 +37,10 @@ From your WordPress dashboard
 = Why is this free? =
 
 Because websites should be fast without costing money.
+
+= How do I configure the utilities? =
+
+[Visit our wiki](https://github.com/jruns/wp-performance-utilities/wiki) to learn how to configure the plugin and use each utility.
 
 == Changelog ==
 
