@@ -95,7 +95,7 @@ perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'delay_scripts_and_styles',
-    'heading'           => 'Delay Scripts?',
+    'heading'           => 'Delay Scripts and Styles?',
     'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_delay</code> WordPress filter to selectively delay javascript and stylesheets on the frontend.',
     'child_options'     => array(
         array(
