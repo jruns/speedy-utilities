@@ -32,14 +32,14 @@ $perfutils_settings = (array) get_option( 'perfutils_settings', array() );
 <?php
 $args = array(
     'name'              => 'disable_jquery_migrate',
-    'heading'           => 'Disable jQuery Migrate?',
+    'heading'           => 'Disable jQuery Migrate',
     'description'       => 'Disable jQuery migrate script from the frontend.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'remove_versions',
-    'heading'           => 'Remove Versions from Scripts and Styles?',
+    'heading'           => 'Remove Versions from Scripts and Styles',
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
@@ -53,7 +53,7 @@ perfutils_output_admin_option( $args, $perfutils_settings );
 <?php
 $args = array(
     'name'              => 'enable_youtube_facade',
-    'heading'           => 'Enable YouTube Facade?',
+    'heading'           => 'Enable YouTube Facade',
     'description'       => 'Enable YouTube facade for videos on the frontend, and delay loading videos until the user clicks the placeholder image.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
@@ -67,8 +67,8 @@ perfutils_output_admin_option( $args, $perfutils_settings );
 <?php
 $args = array(
     'name'              => 'preload_images',
-    'heading'           => 'Preload Images?',
-    'description'       => 'Enable the <code>perfutils_images_to_preload</code> WordPress filter to selectively preload images on the frontend.'
+    'heading'           => 'Preload Images',
+    'description'       => 'Enable the <code>perfutils_images_to_preload</code> WordPress filter to selectively preload images on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Preload-Images" target="_blank">Learn how to use the filter</a>.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
 ?>
@@ -81,22 +81,22 @@ perfutils_output_admin_option( $args, $perfutils_settings );
 <?php
 $args = array(
     'name'              => 'move_scripts_and_styles_to_footer',
-    'heading'           => 'Move Scripts and Styles to the footer?',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_move_to_footer</code> WordPress filter to selectively move scripts and styles to the page footer on the frontend.'
+    'heading'           => 'Move Scripts and Styles to Footer',
+    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_move_to_footer</code> WordPress filter to selectively move scripts and styles to the page footer on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Move-Scripts-and-Styles-to-Footer" target="_blank">Learn how to use the filter</a>.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'remove_scripts_and_styles',
-    'heading'           => 'Remove Scripts and Styles?',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_remove</code> WordPress filter to selectively remove scripts and styles from the frontend.'
+    'heading'           => 'Remove Scripts and Styles',
+    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_remove</code> WordPress filter to selectively remove scripts and styles from the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Remove-Scripts-and-Styles" target="_blank">Learn how to use the filter</a>.'
 );
 perfutils_output_admin_option( $args, $perfutils_settings );
 
 $args = array(
     'name'              => 'delay_scripts_and_styles',
-    'heading'           => 'Delay Scripts and Styles?',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_delay</code> WordPress filter to selectively delay javascript and stylesheets on the frontend.',
+    'heading'           => 'Delay Scripts and Styles',
+    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_delay</code> WordPress filter to selectively delay javascript and stylesheets on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Delay-Scripts-and-Stylesheets" target="_blank">Learn how to use the filter</a>.',
     'child_options'     => array(
         array(
             'name'              => 'autoload_delay',
@@ -199,6 +199,11 @@ function perfutils_output_admin_option( $args, $perfutils_settings, $should_retu
 		),
 		'span' => array(
 			'class' => array(),
+		),
+
+		'a' => array(
+			'href' => array(),
+			'target' => array(),
 		),
         'code' => array(),
         'p' => array(),
