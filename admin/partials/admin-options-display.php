@@ -194,6 +194,7 @@ function perfutils_output_admin_option( $args, $perfutils_settings, $should_retu
 			'name' => array(),
 			'value' => array(),
 			'placeholder' => array(),
+			'title' => array(),
 			'checked' => array(),
 			'disabled' => array(),
 		),
