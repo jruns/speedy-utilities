@@ -25,6 +25,7 @@ $perfutils_settings = (array) get_option( 'perfutils_settings', array() );
 ?>
 
 <div class="wrap">
+<div style="padding-top:16px; float: right;"><a href="https://github.com/jruns/wp-performance-utilities/wiki" target="_blank" rel="noreferrer noopener">Documentation</a></div>
 <h1><?php esc_html_e( 'Performance Utilities', 'performance-utilities' ); ?></h1>
 
 <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
