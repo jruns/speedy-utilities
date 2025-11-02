@@ -51,6 +51,27 @@ class PerformanceUtilities_Preload_Images {
 	}
 
 	public function add_meta_box( $post_type, $post ) {
+
+		register_meta(
+			'post',
+			'_perfutils_preload_images',
+			array(
+				'type' => 'array',
+				'description' => 'preloaded images',
+				'single' => true,
+				'show_in_rest' =>  array(
+					'schema' => array(
+						'type' => 'array',
+						'items' => array(
+                     		'type' => 'array',
+                 		),
+						'default' => array()
+					)
+				),
+				'sanitize_callback' => array( $this, 'sanitize_meta_value' )
+			)
+		);
+
 		add_meta_box(
 			'perfutils_preload_images_metabox',
 			'Preload Images',
@@ -61,8 +82,21 @@ class PerformanceUtilities_Preload_Images {
 			array( '__block_editor_compatible_meta_box' => true )
 		);
 	}
+
+	public function sanitize_meta_value( $meta_value, $meta_key, $object_type, $object_subtype ) {
+		return map_deep( $meta_value, 'sanitize_text_field' );
+	}
 	
 	public function render_meta_box( $post ) {
+		$values = get_post_meta( $post->ID, '_perfutils_preload_images', true );
+
+		$defaults = array(
+			'image1' => array(),
+			'image2' => array(),
+			'image3' => array(),
+		);
+  		$values = wp_parse_args( $values, $defaults );
+
 		wp_enqueue_style( 'perfutils-preload-images-editor', plugin_dir_url( __DIR__ ) . 'css/preload_images_editor.css', array(), constant( 'PERFUTILS_VERSION' ) );
 
     	$allowed_html = array(
@@ -71,6 +105,8 @@ class PerformanceUtilities_Preload_Images {
 				'style' => array()
 			),
 			'input' => array(
+				'name' => array(),
+				'id' => array(),
 				'class' => array(),
 				'type' => array(),
 				'size' => array(),
@@ -94,55 +130,55 @@ class PerformanceUtilities_Preload_Images {
 			<div class="perfutils-row">
 				<div class="perfutils-item"></div>
 				<div class="perfutils-item perfutils-bold">Image URL:</div>
-				<div class="perfutils-item perfutils-bold">Load when Screen Width is: (optional)</div>
-			</div>
-			<div class="perfutils-row">
-				<div class="perfutils-item perfutils-bold">Image 1:</div>
-				<div class="perfutils-item"><input class="fullwidth" type="text" placeholder="Enter the image URL" /></div>
-				<div class="perfutils-item">
-					<select>
-						<option value="">-- Comparison operator --</option>
-						<option value="gt">Greater than</option>
-						<option value="lt">Less than</option>
-						<option value="gteq">Greater than or equal to</option>
-						<option value="lteq">Less than or equal to</option>
-						<option value="eq">Equal to</option>
-					</select>
-					<input type="text" size="7" placeholder="Width in px" />
-				</div>
-			</div>
-			<div class="perfutils-row">
-				<div class="perfutils-item perfutils-bold">Image 2:</div>
-				<div class="perfutils-item"><input class="fullwidth" type="text" placeholder="Enter the image URL" /></div>
-				<div class="perfutils-item">
-					<select>
-						<option value="">-- Comparison operator --</option>
-						<option value="gt">Greater than</option>
-						<option value="lt">Less than</option>
-						<option value="gteq">Greater than or equal to</option>
-						<option value="lteq">Less than or equal to</option>
-						<option value="eq">Equal to</option>
-					</select>
-					<input type="text" size="7" placeholder="Width in px" />
-				</div>
-			</div>
-			<div class="perfutils-row">
-				<div class="perfutils-item perfutils-bold">Image 3:</div>
-				<div class="perfutils-item"><input class="fullwidth" type="text" placeholder="Enter the image URL" /></div>
-				<div class="perfutils-item">
-					<select>
-						<option value="">-- Comparison operator --</option>
-						<option value="gt">Greater than</option>
-						<option value="lt">Less than</option>
-						<option value="gteq">Greater than or equal to</option>
-						<option value="lteq">Less than or equal to</option>
-						<option value="eq">Equal to</option>
-					</select>
-					<input type="text" size="7" placeholder="Width in px" />
-				</div>
-			</div>
-		</div>';
+				<div class="perfutils-item perfutils-bold">(optional) Load when Screen Width is:</div>
+			</div>' . PHP_EOL .
+			$this->render_meta_box_image_row( 1, $values['image1'] ) . PHP_EOL .
+			$this->render_meta_box_image_row( 2, $values['image2'] ) . PHP_EOL .
+			$this->render_meta_box_image_row( 3, $values['image3'] ) . PHP_EOL .
+		'</div>';
 		echo wp_kses( $output, $allowed_html );
+	}
+
+	public function render_meta_box_image_row( $id, $values ) {
+		$url = esc_url( $values['url'] ?? '' );
+		$comparison = sanitize_key( $values['comparison'] ?? '' );
+		$width = sanitize_text_field( $values['width'] ?? '' );
+
+		if ( ! empty( $width ) ) {
+			if( is_numeric( $width ) ) {
+				$width = $width . 'px';
+			}
+		}
+
+		$output = "<div class='perfutils-row'>
+				<div class='perfutils-item perfutils-bold'>Image $id:</div>
+				<div class='perfutils-item'><input name='perfutils_preloadimages[image$id][url]' id='perfutils_preloadimages[image$id][url]' type='text' placeholder='Enter the image URL' class='fullwidth' value='$url' /></div>
+				<div class='perfutils-item'>
+					<select name='perfutils_preloadimages[image$id][comparison]' id='perfutils_preloadimages[image$id][comparison]'>
+						<option value=''>-- Comparison operator --</option>
+						<option value='gt' " . selected( $comparison, 'gt', false ) . ">Greater than</option>
+						<option value='lt' " . selected( $comparison, 'lt', false ) . ">Less than</option>
+						<option value='gteq' " . selected( $comparison, 'gteq', false ) . ">Greater than or equal to</option>
+						<option value='lteq' " . selected( $comparison, 'lteq', false ) . ">Less than or equal to</option>
+						<option value='eq' " . selected( $comparison, 'eq', false ) . ">Equal to</option>
+					</select>
+					<input name='perfutils_preloadimages[image$id][width]' id='perfutils_preloadimages[image$id][width]' type='text' size='7' placeholder='Width in px' value='$width' />
+				</div>
+			</div>";
+		
+		return $output;
+	}
+
+	public function save_metabox_data( $post_id ) {
+		if ( array_key_exists( 'perfutils_preloadimages', $_POST ) ) {
+			$values = $_POST['perfutils_preloadimages'];
+
+			update_post_meta(
+				$post_id,
+				'_perfutils_preload_images',
+				$values
+			);
+		}
 	}
 
 	/**
@@ -153,5 +189,6 @@ class PerformanceUtilities_Preload_Images {
 	public function run() {
 		add_filter( 'perfutils_modify_final_output', array( $this, 'process_images' ), 9 );
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ), 100, 2 );
+		add_action( 'save_post', array( $this, 'save_metabox_data' ) );
 	}
 }
