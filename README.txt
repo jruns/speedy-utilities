@@ -34,6 +34,11 @@ From your WordPress dashboard
 4. Visit _Settings_ > _Performance Utilities_ to enable utilities
 5. Implement utility-specific WordPress filters in your theme's functions.php file, if necessary
 
+== Screenshots ==
+
+1. Admin Settings Page
+2. Preload Images utility's post meta box
+
 == Frequently Asked Questions ==
 
 = Why is this free? =
