@@ -81,7 +81,7 @@ class PerformanceUtilities_Preload_Images {
 				}
 			}
 
-			echo $preload_tags;
+			echo PHP_EOL . $preload_tags;
 		}
 	}
 
