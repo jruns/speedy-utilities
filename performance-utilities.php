@@ -11,7 +11,7 @@
  * Plugin URI:        https://github.com/jruns/wp-performance-utilities
  * Description:       Utilities to improve the performance of your WordPress site.
  * Version:           1.0.0
- * Author:            Jason Schramm
+ * Author:            jruns
  * Author URI:        https://github.com/jruns
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
