@@ -293,7 +293,7 @@ class PerformanceUtilities_Preload_Images {
 		);
 
 		$repeater->add_control(
-			'width',
+			'screen_width',
 			[
 				'type' => \Elementor\Controls_Manager::TEXT,
 				'default' => '',
