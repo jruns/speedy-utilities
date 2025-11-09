@@ -299,6 +299,9 @@ class PerformanceUtilities_Preload_Images {
 				'default' => '',
 				'placeholder' => 'Width in px',
 				'label_block' => true,
+				'condition' => [
+					'comparison!' => '',
+				],
 			]
 		);
 
