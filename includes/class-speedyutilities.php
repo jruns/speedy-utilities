@@ -9,17 +9,17 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/includes
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/includes
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities {
+class SpeedyUtilities {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -27,7 +27,7 @@ class PerformanceUtilities {
 	 *
 	 * @since    0.1.0
 	 * @access   protected
-	 * @var      PerformanceUtilities_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      SpeedyUtilities_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -86,12 +86,12 @@ class PerformanceUtilities {
 	 * @since    0.1.0
 	 */
 	public function __construct() {
-		if ( defined( 'PERFUTILS_VERSION' ) ) {
-			$this->version = PERFUTILS_VERSION;
+		if ( defined( 'SPEEDY_VERSION' ) ) {
+			$this->version = SPEEDY_VERSION;
 		} else {
-			$this->version = '1.0.1';
+			$this->version = '1.1.0';
 		}
-		$this->plugin_name = 'performance-utilities';
+		$this->plugin_name = 'speedy-utilities';
 
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -103,9 +103,9 @@ class PerformanceUtilities {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - PerformanceUtilities_Loader. Orchestrates the hooks of the plugin.
-	 * - PerformanceUtilities_Conditional_Checks. Defines page conditional processing.
-	 * - PerformanceUtilities_Admin. Defines all hooks for the admin area.
+	 * - SpeedyUtilities_Loader. Orchestrates the hooks of the plugin.
+	 * - SpeedyUtilities_Conditional_Checks. Defines page conditional processing.
+	 * - SpeedyUtilities_Admin. Defines all hooks for the admin area.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -131,7 +131,7 @@ class PerformanceUtilities {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-admin.php';
 
-		$this->loader = new PerformanceUtilities_Loader();
+		$this->loader = new SpeedyUtilities_Loader();
 
 	}
 
@@ -144,31 +144,31 @@ class PerformanceUtilities {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new PerformanceUtilities_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new SpeedyUtilities_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'registersettings' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
-		$this->loader->add_action( 'plugin_action_links_' . PERFUTILS_BASE_NAME, $plugin_admin, 'add_plugin_action_links' );
+		$this->loader->add_action( 'plugin_action_links_' . SPEEDY_BASE_NAME, $plugin_admin, 'add_plugin_action_links' );
 	}
 
 	private function load_settings() {
 		$defaults = array(
 			'active_utilities' => array()
 		);
-		$this->settings = wp_parse_args( get_option( 'perfutils_settings' ), $defaults );
+		$this->settings = wp_parse_args( get_option( 'speedyutils_settings' ), $defaults );
 		
 		$this->wpconfig_mode = false;
-		if( defined( 'PERFUTILS_ENABLE_WPCONFIG_MODE' ) ) {
-			if ( constant( 'PERFUTILS_ENABLE_WPCONFIG_MODE' ) ) {
+		if( defined( 'SPEEDY_ENABLE_WPCONFIG_MODE' ) ) {
+			if ( constant( 'SPEEDY_ENABLE_WPCONFIG_MODE' ) ) {
 				$this->wpconfig_mode = true;
 			}
 		}
 	}
 
 	private function utility_is_active( $className ) {
-		$className = str_replace( 'PerformanceUtilities_', '', $className );
+		$className = str_replace( 'SpeedyUtilities_', '', $className );
 
-		$constant_name = strtoupper( 'perfutils_' . $className );
+		$constant_name = strtoupper( 'speedy_' . $className );
 		$utility_name = strtolower( $className );
 
 		if( defined( $constant_name ) ) {
@@ -198,7 +198,7 @@ class PerformanceUtilities {
 						continue;
 					}
 
-					$className = 'PerformanceUtilities_' . str_replace( array( 'class-', '-', '.php'), array( '', ' ', ''), $file );
+					$className = 'SpeedyUtilities_' . str_replace( array( 'class-', '-', '.php'), array( '', ' ', ''), $file );
 					$className = str_replace( ' ', '_', ucwords( $className ) );
 
 					if ( $this->utility_is_active( $className ) ) {
@@ -232,7 +232,7 @@ class PerformanceUtilities {
 	private function activate_html_buffer() {
 		if ( ! $this->buffer_is_active ) {
 			require_once plugin_dir_path( __FILE__ ) . 'class-html-buffer.php';
-			new PerformanceUtilities_Html_Buffer();
+			new SpeedyUtilities_Html_Buffer();
 
 			$this->buffer_is_active = true;
 		}
@@ -262,7 +262,7 @@ class PerformanceUtilities {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     0.1.0
-	 * @return    PerformanceUtilities_Loader    Orchestrates the hooks of the plugin.
+	 * @return    SpeedyUtilities_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

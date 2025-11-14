@@ -3,17 +3,17 @@
 /**
  * HTML Buffer for modifying html before its output
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/includes
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/includes
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Html_Buffer {
+class SpeedyUtilities_Html_Buffer {
 
 	private $buffer;
 
@@ -23,12 +23,12 @@ class PerformanceUtilities_Html_Buffer {
 	}
 
 	static function filter_buffer( $buffer ) {
-		$buffer = apply_filters( 'perfutils_modify_final_output', $buffer );
+		$buffer = apply_filters( 'speedy_modify_final_output', $buffer );
 		return $buffer;
 	}
 
 	public function start_buffer() {
-		ob_start( array( PerformanceUtilities_Html_Buffer::class, 'filter_buffer' ) );
+		ob_start( array( SpeedyUtilities_Html_Buffer::class, 'filter_buffer' ) );
 	}
 
 	public function end_buffer() {
@@ -94,7 +94,7 @@ class PerformanceUtilities_Html_Buffer {
 							'tag_contents'	=> $tag_contents,
 							'ele'			=> $ele
 						);
-						$tag_contents = PerformanceUtilities_Delay_Scripts_And_Styles::process_tag( $delay_args, $insert_delay_scripts );
+						$tag_contents = SpeedyUtilities_Delay_Scripts_And_Styles::process_tag( $delay_args, $insert_delay_scripts );
 					} else {
 						if ( $operation === 'move_to_footer' ) {
 							$moves_queue[] = $tag_contents;
@@ -117,7 +117,7 @@ class PerformanceUtilities_Html_Buffer {
 
 		// Add delay scripts if needed
 		if ( ! empty( $insert_delay_scripts ) ) {
-			$delay_scripts = PerformanceUtilities_Delay_Scripts_And_Styles::get_delay_scripts( $insert_delay_scripts );
+			$delay_scripts = SpeedyUtilities_Delay_Scripts_And_Styles::get_delay_scripts( $insert_delay_scripts );
 
 			$buffer = str_replace( '</body>', $delay_scripts . '</body>', $buffer );
 		}

@@ -3,7 +3,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Remove_Versions {
+class SpeedyUtilities_Remove_Versions {
 
 	private $settings;
 
@@ -31,6 +31,6 @@ class PerformanceUtilities_Remove_Versions {
 	 * @since    0.6.0
 	 */
 	public function run() {
-		add_filter( 'perfutils_modify_final_output', array( $this, 'process_version_removals' ), 10 );
+		add_filter( 'speedy_modify_final_output', array( $this, 'process_version_removals' ), 10 );
 	}
 }

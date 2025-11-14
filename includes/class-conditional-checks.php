@@ -3,17 +3,17 @@
 /**
  * Conditional checks for filtering page match rules
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/includes
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/includes
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Conditional_Checks {
+class SpeedyUtilities_Conditional_Checks {
 	public function __construct() {
 	}
 

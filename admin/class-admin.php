@@ -3,17 +3,17 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/admin
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/admin
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Admin {
+class SpeedyUtilities_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -48,10 +48,10 @@ class PerformanceUtilities_Admin {
 
 	public function add_options_page() {
 		add_options_page(
-			'Performance Utilities',
-			'Performance Utilities',
+			'Speedy Performance Utilities',
+			'Speedy Performance Utilities',
 			'manage_options',
-			'performance-utilities',
+			'speedy-utilities',
 			array( $this, 'render_options_page' )
 		);
 		
@@ -64,8 +64,8 @@ class PerformanceUtilities_Admin {
 		);
 
         register_setting(
-			'performance-utilities',
-			'perfutils_settings',
+			'speedy-utilities',
+			'speedyutils_settings',
 			array(
 				'type'              => 'array',
 				'sanitize_callback'	=> array( $this, 'sanitize_array' ),
@@ -84,17 +84,17 @@ class PerformanceUtilities_Admin {
 	}
 
 	public function enqueue_admin_options_style( $hook ) {
-		if ( 'settings_page_performance-utilities' !== $hook ) {
+		if ( 'settings_page_speedy-utilities' !== $hook ) {
 			return;
 		}
 
-		wp_enqueue_style( 'perfutils-admin-options', plugin_dir_url( __FILE__ ) . 'css/admin_options.css', array(), constant( 'PERFUTILS_VERSION' ) );
+		wp_enqueue_style( 'speedyutils-admin-options', plugin_dir_url( __FILE__ ) . 'css/admin_options.css', array(), constant( 'SPEEDY_VERSION' ) );
 	}
 
 	public function add_plugin_action_links( array $links ) {
-		$settings_url = menu_page_url( 'performance-utilities', false );
+		$settings_url = menu_page_url( 'speedy-utilities', false );
 		return array_merge( array(
-			'settings' => '<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'performance-utilities' ) . '</a>',
+			'settings' => '<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'speedy-utilities' ) . '</a>',
 		), $links );
 	}
 }

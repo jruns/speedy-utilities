@@ -1,5 +1,5 @@
 {
-	"name": "jruns/wp-performance-utilities",
+	"name": "jruns/speedy-utilities",
 	"description": "WordPress plugin to improve the performance of a WordPress website.",
 	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
@@ -19,9 +19,9 @@
 			"homepage": "https://github.com/jruns"
 		}
 	],
-	"homepage": "https://github.com/jruns/wp-performance-utilities",
+	"homepage": "https://github.com/jruns/speedy-utilities",
 	"support": {
-		"issues": "https://github.com/jruns/wp-performance-utilities/issues",
-		"source": "https://github.com/jruns/wp-performance-utilities"
+		"issues": "https://github.com/jruns/speedy-utilities/issues",
+		"source": "https://github.com/jruns/speedy-utilities"
 	}
 }

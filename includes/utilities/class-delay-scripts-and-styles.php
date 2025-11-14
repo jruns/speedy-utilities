@@ -3,7 +3,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Delay_Scripts_And_Styles {
+class SpeedyUtilities_Delay_Scripts_And_Styles {
 
 	private $settings;
 
@@ -16,12 +16,12 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 			'scripts'	=> array()
 		);
 
-		$this->settings = apply_filters( 'perfutils_scripts_and_styles_to_delay', $this->settings ) ?? $this->settings;
+		$this->settings = apply_filters( 'speedy_scripts_and_styles_to_delay', $this->settings ) ?? $this->settings;
 	}
 
 	public function process_delays( $buffer ) {
 		// Filter out delays that are not valid for the current page, based on conditional matches
-		$this->settings['scripts'] = PerformanceUtilities_Conditional_Checks::filter_matches( $this->settings['scripts'] );
+		$this->settings['scripts'] = SpeedyUtilities_Conditional_Checks::filter_matches( $this->settings['scripts'] );
 
 		// Process delays
 		if ( ! empty( $this->settings['scripts'] ) ) {
@@ -33,7 +33,7 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 				'operation'			=> 'delay'
 			);
 
-			$buffer = PerformanceUtilities_Html_Buffer::process_buffer_replacements( $buffer, $match_args );
+			$buffer = SpeedyUtilities_Html_Buffer::process_buffer_replacements( $buffer, $match_args );
 		}
 
 		if ( ! empty( $this->settings['styles'] ) ) {
@@ -46,7 +46,7 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 				'operation'			=> 'delay'
 			);
 
-			$buffer = PerformanceUtilities_Html_Buffer::process_buffer_replacements( $buffer, $match_args );
+			$buffer = SpeedyUtilities_Html_Buffer::process_buffer_replacements( $buffer, $match_args );
 		}
 
 		return $buffer;
@@ -141,14 +141,14 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 	public static function get_user_interaction_delay_script() {
 		$className = 'delay_scripts_and_styles';
 		$delay_var = 'autoload_delay';
-		$delay_constant = strtoupper( 'perfutils_' . $className . '_' . $delay_var );
+		$delay_constant = strtoupper( 'speedy_' . $className . '_' . $delay_var );
 		$autoLoadDelay = null;
 
 		if ( defined( $delay_constant ) && is_numeric( constant( $delay_constant ) ) ) {
 			$autoLoadDelay = intval( constant( $delay_constant ) );
 		} else {
 			// get option, default to 15000 milliseconds if not set
-			$options = (array) get_option( 'perfutils_settings', array() );
+			$options = (array) get_option( 'speedyutils_settings', array() );
 			if ( array_key_exists( $className, $options ) && array_key_exists( $delay_var, $options[$className] ) ) {
 				$autoLoadDelay = $options[$className][$delay_var];
 			}
@@ -157,8 +157,8 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 			}
 		}
 
-		return "<script nodelay>const perfutilsAutoLoadDelay = " . $autoLoadDelay . ";</script>" . PHP_EOL . 
-			"<script id='perfutils-user-interaction-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/user_interaction_delay.min.js' . "' defer></script>";
+		return "<script nodelay>const speedyutilsAutoLoadDelay = " . $autoLoadDelay . ";</script>" . PHP_EOL . 
+			"<script id='speedyutils-user-interaction-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/user_interaction_delay.min.js' . "' defer></script>";
 	}
 
 	/**
@@ -167,7 +167,7 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 	 * @since    0.4.0
 	 */
 	public static function get_page_loaded_delay_script() {
-		return "<script id='perfutils-page-loaded-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/page_loaded_delay.min.js' . "' defer></script>";
+		return "<script id='speedyutils-page-loaded-delay-js' src='". plugin_dir_url( __DIR__ ) . 'js/page_loaded_delay.min.js' . "' defer></script>";
 	}
 
 	/**
@@ -177,6 +177,6 @@ class PerformanceUtilities_Delay_Scripts_And_Styles {
 	 */
 	public function run() {
 		// Iterate over scripts to delay
-		add_filter( 'perfutils_modify_final_output', array( $this, 'process_delays' ), 20 );
+		add_filter( 'speedy_modify_final_output', array( $this, 'process_delays' ), 20 );
 	}
 }
