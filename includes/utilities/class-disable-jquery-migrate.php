@@ -3,7 +3,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Disable_Jquery_Migrate {
+class SpeedyUtilities_Disable_Jquery_Migrate {
 
 	public function __construct() {
 	}

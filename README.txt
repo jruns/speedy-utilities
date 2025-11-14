@@ -1,4 +1,4 @@
-=== Performance Utilities ===
+=== Speedy Performance Utilities ===
 Contributors: jruns
 Tags: performance, optimization, speed, delay, lcp
 Requires at least: 6.0
@@ -22,16 +22,16 @@ This plugin includes several utilities that can be activated and configured in o
 - **Remove Scripts and Styles**: Remove specified scripts and styles from the frontend on specific pages.
 - **Delay Scripts and Styles**: Delay execution of specified scripts and styles until the page has loaded or the user has interacted with the page.
 
-[Visit our wiki](https://github.com/jruns/wp-performance-utilities/wiki) to learn how to configure the plugin and use each utility.
+[Visit our wiki](https://github.com/jruns/speedy-utilities/wiki) to learn how to configure the plugin and use each utility.
 
 == Installation ==
 
 From your WordPress dashboard
 
 1. Visit Plugins > Add New
-2. Search for "Performance Utilities"
-3. Install and Activate _Performance Utilities_ from your Plugins page
-4. Visit _Settings_ > _Performance Utilities_ to enable utilities
+2. Search for "Speedy Performance Utilities"
+3. Install and Activate _Speedy Performance Utilities_ from your Plugins page
+4. Visit _Settings_ > _Speedy Performance Utilities_ to enable utilities
 5. Implement utility-specific WordPress filters in your theme's functions.php file, if necessary
 
 == Screenshots ==
@@ -48,7 +48,7 @@ Because websites should be fast without costing money.
 
 = How do I configure the utilities? =
 
-[Visit our wiki](https://github.com/jruns/wp-performance-utilities/wiki) to learn how to configure the plugin and use each utility.
+[Visit our wiki](https://github.com/jruns/speedy-utilities/wiki) to learn how to configure the plugin and use each utility.
 
 == Changelog ==
 

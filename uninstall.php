@@ -3,10 +3,10 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
+ * @package    SpeedyUtilities
  */
 
 // Exit if accessed directly

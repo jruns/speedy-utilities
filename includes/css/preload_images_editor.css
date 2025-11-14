@@ -1,23 +1,23 @@
-.perfutils-preloadimages.perfutils-container {
+.speedyutils-preloadimages.speedyutils-container {
     display: grid;
     grid-template-rows: auto;
     grid-template-areas:
-        "perfutils-row"
-        "perfutils-row"
-        "perfutils-row";
+        "speedyutils-row"
+        "speedyutils-row"
+        "speedyutils-row";
     gap: 16px;
 }
 
-.perfutils-preloadimages .perfutils-row {
+.speedyutils-preloadimages .speedyutils-row {
     display: grid;
     grid-template-columns: 60px 1fr 1.5fr;
     gap: 16px;
 }
 
-.perfutils-item input.fullwidth {
+.speedyutils-item input.fullwidth {
     width: 100%;
 }
 
-.perfutils-bold {
+.speedyutils-bold {
     font-weight: 600;
 }

@@ -1,5 +1,5 @@
 {
-    const autoLoadDelay = perfutilsAutoLoadDelay;
+    const autoLoadDelay = speedyutilsAutoLoadDelay;
 	const eventList = ["mouseover","keydown","touchmove","touchstart"];
     const load = () => {
 		const event = new Event("DOMUserInteraction");

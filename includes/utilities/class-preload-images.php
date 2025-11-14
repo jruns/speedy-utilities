@@ -3,7 +3,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Preload_Images {
+class SpeedyUtilities_Preload_Images {
 
 	private $settings;
 
@@ -15,12 +15,12 @@ class PerformanceUtilities_Preload_Images {
 			'images'	=> array()
 		);
 
-		$this->settings = apply_filters( 'perfutils_images_to_preload', $this->settings ) ?? $this->settings;
+		$this->settings = apply_filters( 'speedy_images_to_preload', $this->settings ) ?? $this->settings;
 	}
 
 	public function filter_settings() {
 		// Filter out settings that are not valid for the current page, based on conditional matches
-		$this->settings['images'] = PerformanceUtilities_Conditional_Checks::filter_matches( $this->settings['images'] );
+		$this->settings['images'] = SpeedyUtilities_Conditional_Checks::filter_matches( $this->settings['images'] );
 	}
 
 	public function add_preload_tags() {
@@ -29,7 +29,7 @@ class PerformanceUtilities_Preload_Images {
 		$meta_values = array();
 		
 		if ( is_singular() ) {
-			$meta_values = get_post_meta( $post->ID, '_perfutils_preload_images', true );
+			$meta_values = get_post_meta( $post->ID, '_speedyutils_preload_images', true );
 			if ( empty( $meta_values ) ) {
 				$meta_values = array();
 			}
@@ -37,8 +37,8 @@ class PerformanceUtilities_Preload_Images {
 			/* Only query Elementor settings if plugin is active */
 			if ( defined('ELEMENTOR_VERSION') ) {
 				$elementor_values = get_post_meta( $post->ID, '_elementor_page_settings', true );
-				if ( ! empty( $elementor_values ) && is_array( $elementor_values ) && array_key_exists( 'perfutils_preloadimages', $elementor_values) ) {
-					$elementor_values = $elementor_values['perfutils_preloadimages'];
+				if ( ! empty( $elementor_values ) && is_array( $elementor_values ) && array_key_exists( 'speedyutils_preloadimages', $elementor_values) ) {
+					$elementor_values = $elementor_values['speedyutils_preloadimages'];
 					$meta_values = array_merge( $elementor_values, $meta_values );
 				}
 			}
@@ -109,7 +109,7 @@ class PerformanceUtilities_Preload_Images {
 
 		register_meta(
 			'post',
-			'_perfutils_preload_images',
+			'_speedyutils_preload_images',
 			array(
 				'type' => 'array',
 				'description' => 'preloaded images',
@@ -131,7 +131,7 @@ class PerformanceUtilities_Preload_Images {
 		);
 
 		add_meta_box(
-			'perfutils_preload_images_metabox',
+			'speedyutils_preload_images_metabox',
 			'Preload Images',
 			array( $this, 'render_meta_box' ),
 			null,
@@ -146,7 +146,7 @@ class PerformanceUtilities_Preload_Images {
 	}
 	
 	public function render_meta_box( $post ) {
-		$values = get_post_meta( $post->ID, '_perfutils_preload_images', true );
+		$values = get_post_meta( $post->ID, '_speedyutils_preload_images', true );
 
 		$defaults = array(
 			'image1' => array(),
@@ -155,7 +155,7 @@ class PerformanceUtilities_Preload_Images {
 		);
   		$values = wp_parse_args( $values, $defaults );
 
-		wp_enqueue_style( 'perfutils-preload-images-editor', plugin_dir_url( __DIR__ ) . 'css/preload_images_editor.css', array(), constant( 'PERFUTILS_VERSION' ) );
+		wp_enqueue_style( 'speedyutils-preload-images-editor', plugin_dir_url( __DIR__ ) . 'css/preload_images_editor.css', array(), constant( 'SPEEDY_VERSION' ) );
 
     	$allowed_html = array(
 			'div' => array(
@@ -184,18 +184,18 @@ class PerformanceUtilities_Preload_Images {
 		);
 
 		$output = '
-		<div class="perfutils-preloadimages perfutils-container">
-			<div class="perfutils-row">
-				<div class="perfutils-item"></div>
-				<div class="perfutils-item perfutils-bold">Image URL:</div>
-				<div class="perfutils-item perfutils-bold">Load when Screen Width is:</div>
+		<div class="speedyutils-preloadimages speedyutils-container">
+			<div class="speedyutils-row">
+				<div class="speedyutils-item"></div>
+				<div class="speedyutils-item speedyutils-bold">Image URL:</div>
+				<div class="speedyutils-item speedyutils-bold">Load when Screen Width is:</div>
 			</div>' . PHP_EOL .
 			$this->render_meta_box_image_row( 1, $values['image1'] ) . PHP_EOL .
 			$this->render_meta_box_image_row( 2, $values['image2'] ) . PHP_EOL .
 			$this->render_meta_box_image_row( 3, $values['image3'] ) . PHP_EOL .
 		'</div>';
 
-		wp_nonce_field( 'perfutils_preloadimages_metabox', 'perfutils_preloadimages_metabox_nonce' );
+		wp_nonce_field( 'speedyutils_preloadimages_metabox', 'speedyutils_preloadimages_metabox_nonce' );
 		echo wp_kses( $output, $allowed_html );
 	}
 
@@ -210,11 +210,11 @@ class PerformanceUtilities_Preload_Images {
 			}
 		}
 
-		$output = "<div class='perfutils-row'>
-				<div class='perfutils-item perfutils-bold'>Image $id:</div>
-				<div class='perfutils-item'><input name='perfutils_preloadimages[image$id][url]' id='perfutils_preloadimages[image$id][url]' type='text' placeholder='Enter the image URL' class='fullwidth' value='$url' /></div>
-				<div class='perfutils-item'>
-					<select name='perfutils_preloadimages[image$id][comparison]' id='perfutils_preloadimages[image$id][comparison]'>
+		$output = "<div class='speedyutils-row'>
+				<div class='speedyutils-item speedyutils-bold'>Image $id:</div>
+				<div class='speedyutils-item'><input name='speedyutils_preloadimages[image$id][url]' id='speedyutils_preloadimages[image$id][url]' type='text' placeholder='Enter the image URL' class='fullwidth' value='$url' /></div>
+				<div class='speedyutils-item'>
+					<select name='speedyutils_preloadimages[image$id][comparison]' id='speedyutils_preloadimages[image$id][comparison]'>
 						<option value=''>-- Comparison operator --</option>
 						<option value='gt' " . selected( $comparison, 'gt', false ) . ">Greater than</option>
 						<option value='lt' " . selected( $comparison, 'lt', false ) . ">Less than</option>
@@ -222,7 +222,7 @@ class PerformanceUtilities_Preload_Images {
 						<option value='lteq' " . selected( $comparison, 'lteq', false ) . ">Less than or equal to</option>
 						<option value='eq' " . selected( $comparison, 'eq', false ) . ">Equal to</option>
 					</select>
-					<input name='perfutils_preloadimages[image$id][width]' id='perfutils_preloadimages[image$id][width]' type='text' size='7' placeholder='Width in px' value='$width' />
+					<input name='speedyutils_preloadimages[image$id][width]' id='speedyutils_preloadimages[image$id][width]' type='text' size='7' placeholder='Width in px' value='$width' />
 				</div>
 			</div>";
 		
@@ -234,16 +234,16 @@ class PerformanceUtilities_Preload_Images {
 			return false;
 		}
 
-		if ( ! array_key_exists( 'perfutils_preloadimages_metabox_nonce', $_POST ) || ! wp_verify_nonce( wp_unslash( $_POST['perfutils_preloadimages_metabox_nonce'] ), 'perfutils_preloadimages_metabox' ) ) {
+		if ( ! array_key_exists( 'speedyutils_preloadimages_metabox_nonce', $_POST ) || ! wp_verify_nonce( wp_unslash( $_POST['speedyutils_preloadimages_metabox_nonce'] ), 'speedyutils_preloadimages_metabox' ) ) {
 			return false;
 		}
 
-		if ( array_key_exists( 'perfutils_preloadimages', $_POST ) && is_array( $_POST['perfutils_preloadimages'] ) ) {
-			$values = map_deep( wp_unslash( $_POST['perfutils_preloadimages'] ), 'sanitize_text_field' );
+		if ( array_key_exists( 'speedyutils_preloadimages', $_POST ) && is_array( $_POST['speedyutils_preloadimages'] ) ) {
+			$values = map_deep( wp_unslash( $_POST['speedyutils_preloadimages'] ), 'sanitize_text_field' );
 
 			update_post_meta(
 				$post_id,
-				'_perfutils_preload_images',
+				'_speedyutils_preload_images',
 				$values
 			);
 		}
@@ -262,12 +262,12 @@ class PerformanceUtilities_Preload_Images {
 		}
 
 		$comparison_options = array(
-			'' 		=> esc_html__( '-- Comparison operator --', 'performance-utilities' ),
-			'gt' 	=> esc_html__( 'Greater than', 'performance-utilities' ),
-			'lt' 	=> esc_html__( 'Less than', 'performance-utilities' ),
-			'gteq' 	=> esc_html__( 'Greater than or equal to', 'performance-utilities' ),
-			'lteq' 	=> esc_html__( 'Less than or equal to', 'performance-utilities' ),
-			'eq' 	=> esc_html__( 'Equal to', 'performance-utilities' ),
+			'' 		=> esc_html__( '-- Comparison operator --', 'speedy-utilities' ),
+			'gt' 	=> esc_html__( 'Greater than', 'speedy-utilities' ),
+			'lt' 	=> esc_html__( 'Less than', 'speedy-utilities' ),
+			'gteq' 	=> esc_html__( 'Greater than or equal to', 'speedy-utilities' ),
+			'lteq' 	=> esc_html__( 'Less than or equal to', 'speedy-utilities' ),
+			'eq' 	=> esc_html__( 'Equal to', 'speedy-utilities' ),
 		);
 
 		$repeater = new \Elementor\Repeater();
@@ -275,7 +275,7 @@ class PerformanceUtilities_Preload_Images {
 		$document->start_controls_section(
 			'preload_images_section',
 			[
-				'label' => esc_html__( 'Preload Images', 'performance-utilities' ),
+				'label' => esc_html__( 'Preload Images', 'speedy-utilities' ),
 				'tab' => \Elementor\Controls_Manager::TAB_SETTINGS,
 			]
 		);
@@ -313,7 +313,7 @@ class PerformanceUtilities_Preload_Images {
 		);
 
 		$document->add_control(
-			'perfutils_preloadimages',
+			'speedyutils_preloadimages',
 			[
 				'max_items' => 3,
 				'min_items' => 0,
@@ -321,7 +321,7 @@ class PerformanceUtilities_Preload_Images {
 				'fields' => $repeater->get_controls(),
 				'title_field' => 'Image',
 				'prevent_empty' => false,
-				'button_text' => esc_html__( 'Add Image', 'performance-utilities' ),
+				'button_text' => esc_html__( 'Add Image', 'speedy-utilities' ),
 				'default' => array(),
 				'item_actions' => [
 					'add' => true,
@@ -334,7 +334,7 @@ class PerformanceUtilities_Preload_Images {
 
 		$document->end_controls_section();
 
-		wp_enqueue_style( 'perfutils-preload-images-elementor-editor', plugin_dir_url( __DIR__ ) . 'css/preload_images_elementor_editor.css', array(), constant( 'PERFUTILS_VERSION' ) );
+		wp_enqueue_style( 'speedyutils-preload-images-elementor-editor', plugin_dir_url( __DIR__ ) . 'css/preload_images_elementor_editor.css', array(), constant( 'SPEEDY_VERSION' ) );
 	}
 
 

@@ -3,7 +3,7 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Enable_Youtube_Facade {
+class SpeedyUtilities_Enable_Youtube_Facade {
 
 	private $settings;
 
@@ -36,10 +36,10 @@ class PerformanceUtilities_Enable_Youtube_Facade {
 
 				$img_url = "https://img.youtube.com/vi/$video_id/hqdefault.jpg";
 
-				return "<div class='perfutils-youtube-embed perfutils-youtube-embed-$video_id' style='width:${width}px'>
+				return "<div class='speedyutils-youtube-embed speedyutils-youtube-embed-$video_id' style='width:${width}px'>
 				<a href='$nonembed_video_url' data-video-id='$video_id' data-width='$width' data-height='$height' style=\"\" title='Play' target='_blank'>
 					<img src='$img_url' loading='lazy' width='$width' height='$height' style='height: ${height}px;object-fit: cover;aspect-ratio: $width / $height;' />
-					<div class='perfutils-youtube-play'></div>
+					<div class='speedyutils-youtube-play'></div>
 				</a></div>";
 			},
 			$buffer,
@@ -55,8 +55,8 @@ class PerformanceUtilities_Enable_Youtube_Facade {
 	}
 
 	public function get_footer_code() {
-		$footer_code = "<link rel='stylesheet' id='perfutils-youtube-facade-css' href='". plugin_dir_url( __DIR__ ) . 'css/youtube_facade.min.css' . "' media='all' />
-<script id='perfutils-youtube-facade-js' src='". plugin_dir_url( __DIR__ ) . 'js/youtube_facade.min.js' . "'></script>
+		$footer_code = "<link rel='stylesheet' id='speedyutils-youtube-facade-css' href='". plugin_dir_url( __DIR__ ) . 'css/youtube_facade.min.css' . "' media='all' />
+<script id='speedyutils-youtube-facade-js' src='". plugin_dir_url( __DIR__ ) . 'js/youtube_facade.min.js' . "'></script>
 ";
 		return $footer_code;
 	}
@@ -67,6 +67,6 @@ class PerformanceUtilities_Enable_Youtube_Facade {
 	 * @since    0.2.0
 	 */
 	public function run() {
-		add_filter( 'perfutils_modify_final_output', array( $this, 'process_youtube_iframes' ), 8 );
+		add_filter( 'speedy_modify_final_output', array( $this, 'process_youtube_iframes' ), 8 );
 	}
 }

@@ -5,35 +5,35 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/admin/partials
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/admin/partials
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$perfutils_wpconfig_mode = false;
-if( defined( 'PERFUTILS_ENABLE_WPCONFIG_MODE' ) ) {
-    if ( constant( 'PERFUTILS_ENABLE_WPCONFIG_MODE' ) ) {
-        $perfutils_wpconfig_mode = true;
+$speedyutils_wpconfig_mode = false;
+if( defined( 'SPEEDY_ENABLE_WPCONFIG_MODE' ) ) {
+    if ( constant( 'SPEEDY_ENABLE_WPCONFIG_MODE' ) ) {
+        $speedyutils_wpconfig_mode = true;
     }
 }
-$perfutils_settings = (array) get_option( 'perfutils_settings', array() );
+$speedyutils_settings = (array) get_option( 'speedyutils_settings', array() );
 ?>
 
 <div class="wrap">
-<div style="padding-top:16px; float: right;"><a href="https://github.com/jruns/wp-performance-utilities/wiki" target="_blank" rel="noreferrer noopener">Documentation</a></div>
-<h1><?php esc_html_e( 'Performance Utilities', 'performance-utilities' ); ?></h1>
+<div style="padding-top:16px; float: right;"><a href="https://github.com/jruns/speedy-utilities/wiki" target="_blank" rel="noreferrer noopener">Documentation</a></div>
+<h1><?php esc_html_e( 'Speedy Performance Utilities', 'speedy-utilities' ); ?></h1>
 
 <form method="post" action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>">
-<?php settings_fields( 'performance-utilities' ); ?>
+<?php settings_fields( 'speedy-utilities' ); ?>
 
 <ul>
 <li class="itemDetail">
-<h2 class="itemTitle"><?php esc_html_e( 'General Utilities', 'performance-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php esc_html_e( 'General Utilities', 'speedy-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
@@ -42,19 +42,19 @@ $args = array(
     'heading'           => 'Disable jQuery Migrate',
     'description'       => 'Disable jQuery migrate script from the frontend.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 
 $args = array(
     'name'              => 'remove_versions',
     'heading'           => 'Remove Versions from Scripts and Styles',
     'description'       => 'Remove versions from the source urls of external scripts and styles on the frontend. This can improve browser and CDN caching.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 ?>
 </table>
 
 
-<h2 class="itemTitle"><?php esc_html_e( 'Facade Utilities', 'performance-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php esc_html_e( 'Facade Utilities', 'speedy-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
@@ -63,47 +63,47 @@ $args = array(
     'heading'           => 'Enable YouTube Facade',
     'description'       => 'Enable YouTube facade for videos on the frontend, and delay loading videos until the user clicks the placeholder image.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 ?>
 </table>
 
 
-<h2 class="itemTitle"><?php esc_html_e( 'Largest Contentful Paint Utilities', 'performance-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php esc_html_e( 'Largest Contentful Paint Utilities', 'speedy-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
 $args = array(
     'name'              => 'preload_images',
     'heading'           => 'Preload Images',
-    'description'       => 'Enable the <i>Preload Images</i> post meta box and the <code>perfutils_images_to_preload</code> WordPress filter to preload images on specific pages on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Preload-Images" target="_blank">Learn how to use the utility</a>.'
+    'description'       => 'Enable the <i>Preload Images</i> post meta box and the <code>speedy_images_to_preload</code> WordPress filter to preload images on specific pages on the frontend. <a href="https://github.com/jruns/speedy-utilities/wiki/Preload-Images" target="_blank">Learn how to use the utility</a>.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 ?>
 </table>
 
 
-<h2 class="itemTitle"><?php esc_html_e( 'Render-Blocking Utilities', 'performance-utilities' ); ?></h2>
+<h2 class="itemTitle"><?php esc_html_e( 'Render-Blocking Utilities', 'speedy-utilities' ); ?></h2>
 
 <table class="form-table">
 <?php
 $args = array(
     'name'              => 'move_scripts_and_styles_to_footer',
     'heading'           => 'Move Scripts and Styles to Footer',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_move_to_footer</code> WordPress filter to selectively move scripts and styles to the page footer on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Move-Scripts-and-Styles-to-Footer" target="_blank">Learn how to use the filter</a>.'
+    'description'       => 'Enable the <code>speedy_scripts_and_styles_to_move_to_footer</code> WordPress filter to selectively move scripts and styles to the page footer on the frontend. <a href="https://github.com/jruns/speedy-utilities/wiki/Move-Scripts-and-Styles-to-Footer" target="_blank">Learn how to use the filter</a>.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 
 $args = array(
     'name'              => 'remove_scripts_and_styles',
     'heading'           => 'Remove Scripts and Styles',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_remove</code> WordPress filter to selectively remove scripts and styles from the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Remove-Scripts-and-Styles" target="_blank">Learn how to use the filter</a>.'
+    'description'       => 'Enable the <code>speedy_scripts_and_styles_to_remove</code> WordPress filter to selectively remove scripts and styles from the frontend. <a href="https://github.com/jruns/speedy-utilities/wiki/Remove-Scripts-and-Styles" target="_blank">Learn how to use the filter</a>.'
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 
 $args = array(
     'name'              => 'delay_scripts_and_styles',
     'heading'           => 'Delay Scripts and Styles',
-    'description'       => 'Enable the <code>perfutils_scripts_and_styles_to_delay</code> WordPress filter to selectively delay javascript and stylesheets on the frontend. <a href="https://github.com/jruns/wp-performance-utilities/wiki/Delay-Scripts-and-Stylesheets" target="_blank">Learn how to use the filter</a>.',
+    'description'       => 'Enable the <code>speedy_scripts_and_styles_to_delay</code> WordPress filter to selectively delay javascript and stylesheets on the frontend. <a href="https://github.com/jruns/speedy-utilities/wiki/Delay-Scripts-and-Stylesheets" target="_blank">Learn how to use the filter</a>.',
     'child_options'     => array(
         array(
             'name'              => 'autoload_delay',
@@ -114,7 +114,7 @@ $args = array(
         )
     )
 );
-perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode );
+speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode );
 ?>
 </table>
 
@@ -122,7 +122,7 @@ perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_m
 </ul>
 
 <p class="submit">
-<input type="submit" class="button-secondary" value="<?php esc_html_e( 'Save Changes', 'performance-utilities' ); ?>" />
+<input type="submit" class="button-secondary" value="<?php esc_html_e( 'Save Changes', 'speedy-utilities' ); ?>" />
 </p>
 
 </form>
@@ -130,7 +130,7 @@ perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_m
 
 <?php
 
-function perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_wpconfig_mode = false, $should_return = false ) {
+function speedyutils_output_admin_option( $args, $speedyutils_settings, $speedyutils_wpconfig_mode = false, $should_return = false ) {
     $parent = $args['parent'] ?? null;
     $type = $args['type'] ?? '';
     $name = $args['name'] ?? '';
@@ -139,19 +139,19 @@ function perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_w
     $default = $args['default'] ?? '';
     $child_options = $args['child_options'] ?? array();
 
-    $utility_constant = strtoupper( 'perfutils_' . ( $parent ? $parent . '_' : '' ) . $name );
+    $utility_constant = strtoupper( 'speedy_' . ( $parent ? $parent . '_' : '' ) . $name );
     $utility_value = null;
     $placeholder = '';
     $after_label_msg = '';
 
     if( defined( $utility_constant ) ) {
         $utility_value = constant( $utility_constant );
-        $after_label_msg = "<span class='tooltip'><span class='dashicons dashicons-warning'></span><span class='tooltip-text'>This setting is currently configured in your wp-config.php file and can only be enabled or disabled there.<br/><br/>" . ( $perfutils_wpconfig_mode ? "WP-Config Mode is enabled as well. Remove PERFUTILS_ENABLE_WPCONFIG_MODE and $utility_constant from wp-config.php in order to enable/disable this setting here." : "Remove $utility_constant from wp-config.php in order to enable/disable this setting here." ) . "</span></span>";
-    } else if ( ! $perfutils_wpconfig_mode && ! empty( $perfutils_settings ) ) {
-        if ( ! empty( $parent ) && array_key_exists( $parent, $perfutils_settings ) && array_key_exists( $name, $perfutils_settings[$parent] ) ) {
-            $utility_value = $perfutils_settings[$parent][$name];
-        } else if ( array_key_exists( 'active_utilities', $perfutils_settings ) && array_key_exists( $name, $perfutils_settings['active_utilities'] ) ) {
-            $utility_value = $perfutils_settings['active_utilities'][$name];
+        $after_label_msg = "<span class='tooltip'><span class='dashicons dashicons-warning'></span><span class='tooltip-text'>This setting is currently configured in your wp-config.php file and can only be enabled or disabled there.<br/><br/>" . ( $speedyutils_wpconfig_mode ? "WP-Config Mode is enabled as well. Remove SPEEDY_ENABLE_WPCONFIG_MODE and $utility_constant from wp-config.php in order to enable/disable this setting here." : "Remove $utility_constant from wp-config.php in order to enable/disable this setting here." ) . "</span></span>";
+    } else if ( ! $speedyutils_wpconfig_mode && ! empty( $speedyutils_settings ) ) {
+        if ( ! empty( $parent ) && array_key_exists( $parent, $speedyutils_settings ) && array_key_exists( $name, $speedyutils_settings[$parent] ) ) {
+            $utility_value = $speedyutils_settings[$parent][$name];
+        } else if ( array_key_exists( 'active_utilities', $speedyutils_settings ) && array_key_exists( $name, $speedyutils_settings['active_utilities'] ) ) {
+            $utility_value = $speedyutils_settings['active_utilities'][$name];
         }
 
         if ( is_numeric( $utility_value ) || ( is_array( $utility_value ) && ! empty( $utility_value ) ) ) {
@@ -166,26 +166,26 @@ function perfutils_output_admin_option( $args, $perfutils_settings, $perfutils_w
     if ( ! empty( $child_options ) && is_array( $child_options ) ) {
         foreach( $child_options as $child ) {
             $child['parent'] = $name;
-            $child_output .= perfutils_output_admin_option( $child, $perfutils_settings, $perfutils_wpconfig_mode, true );
+            $child_output .= speedyutils_output_admin_option( $child, $speedyutils_settings, $speedyutils_wpconfig_mode, true );
         }
         $child_output = "<table class='child-table'>" . $child_output . "</table>";
     }
 
-    $form_field_name = "perfutils_settings" . ( $parent ? "[$parent]" : "[active_utilities]" ). "[$name]";
+    $form_field_name = "speedyutils_settings" . ( $parent ? "[$parent]" : "[active_utilities]" ). "[$name]";
 
     $disabled_title = "Remove $utility_constant from wp-config.php in order to configure this setting here.";
-    if ( $perfutils_wpconfig_mode ) {
-        $disabled_title = "This setting is managed by the $utility_constant constant in wp-config.php because WP-Config Mode is enabled. Remove PERFUTILS_ENABLE_WPCONFIG_MODE " . ( defined( $utility_constant ) ? "and $utility_constant " : "" ) . "from wp-config.php in order to configure this setting here.";
+    if ( $speedyutils_wpconfig_mode ) {
+        $disabled_title = "This setting is managed by the $utility_constant constant in wp-config.php because WP-Config Mode is enabled. Remove SPEEDY_ENABLE_WPCONFIG_MODE " . ( defined( $utility_constant ) ? "and $utility_constant " : "" ) . "from wp-config.php in order to configure this setting here.";
     }
 
-    $input_output = "<input type='checkbox' name='$form_field_name' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( $perfutils_wpconfig_mode || defined( $utility_constant ) ? " disabled='' title='$disabled_title'" : "" ) . "/>" . $description . "$after_label_msg";
+    $input_output = "<input type='checkbox' name='$form_field_name' value='1' " . ( $utility_value ? "checked='checked'" : '' ) . ( $speedyutils_wpconfig_mode || defined( $utility_constant ) ? " disabled='' title='$disabled_title'" : "" ) . "/>" . $description . "$after_label_msg";
     if ( ! empty( $type ) ) {
         if ( empty( $utility_value ) && ! empty( $default ) ) {
             $placeholder = "placeholder='$default'";
         }
 
         if ( 'number' === $type ) {
-            $input_output = $description . "<br/><input type='number' name='$form_field_name' value='$utility_value' $placeholder" . ( $perfutils_wpconfig_mode || defined( $utility_constant ) ? " disabled='' title='$disabled_title'" : "" ) . "/>$after_label_msg";
+            $input_output = $description . "<br/><input type='number' name='$form_field_name' value='$utility_value' $placeholder" . ( $speedyutils_wpconfig_mode || defined( $utility_constant ) ? " disabled='' title='$disabled_title'" : "" ) . "/>$after_label_msg";
         }
     }
 

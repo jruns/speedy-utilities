@@ -7,17 +7,17 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @link       https://github.com/jruns/wp-performance-utilities
+ * @link       https://github.com/jruns/speedy-utilities
  * @since      0.1.0
  *
- * @package    PerformanceUtilities
- * @subpackage PerformanceUtilities/includes
+ * @package    SpeedyUtilities
+ * @subpackage SpeedyUtilities/includes
  */
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class PerformanceUtilities_Loader {
+class SpeedyUtilities_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.
