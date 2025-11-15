@@ -53,7 +53,8 @@ Because websites should be fast without costing money.
 == Changelog ==
 
 = 1.1.0 =
-* Add Elementor page setting preloading up to 3 images.
+* Rename the plugin, all filters, and all constants to use Speedy prefix.
+* Preload Images utility: Add 'Preload Images' Elementor page setting section for preloading up to 3 images from within the Elementor editor.
 
 = 1.0.1 =
 * Only preload post meta box images on singular pages (posts, pages, custom post type pages). Don't preload them on frontpages or archive pages. Use the preload filter to preload images on those types of pages.
